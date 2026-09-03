@@ -322,14 +322,6 @@ The demo walks through the application from **sign-in → journaling → Gemini 
 
 ---
 
-# 🔗 Repository
-
-**GitHub:**
-
-https://github.com/Minahil099/personal-gemini-journal-app
-
----
-
 # 🏆 Built For
 
 **Google Cloud Gen AI Academy APAC Edition — Cohort 3**
