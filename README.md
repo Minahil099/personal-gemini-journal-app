@@ -1,213 +1,130 @@
 # 🌟 Personal Gemini Journal
 
-> **A confidential, AI-powered personal journaling sanctuary built with Gemini, Firebase, Firestore, and Google Cloud.**
+> **A private, AI-powered journaling sanctuary where users can write, reflect, and understand their thoughts through Gemini.**
 
-Personal Gemini Journal is a secure, user-authenticated journaling application created for the **Google Cloud Gen AI Academy APAC Cohort 3 — Ideathon 2026**, organized by **Hack2skill**.
+Personal Gemini Journal is an AI-powered journaling application created for the **Google Cloud Gen AI Academy APAC Cohort 3 — Ideathon 2026**, organized by **Hack2skill**.
 
-The application allows users to privately record their thoughts and reflections while engaging in multi-turn, empathetic conversations with Gemini. Each user's journal data is isolated using their Firebase Authentication UID.
+The project goes beyond traditional journaling by combining **multi-turn Gemini conversations, Smart Journal Insights, guided reflection prompts, and user-isolated Firestore storage** in one secure experience.
+
+### 💡 Core Experience
+
+**Write → Reflect → Converse → Understand**
+
+Users can privately record their thoughts, discuss their reflections with Gemini, and gain additional insights from their journal entries.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-### 🔐 Secure Authentication
+### 🤖 1. Multi-Turn Gemini Reflection
 
-* Google Sign-In using Firebase Authentication
-* Authenticated access to personal journal data
-* User-specific Firestore data isolation
-
-### 🤖 Gemini-Powered Reflection
+The journal is designed as an ongoing conversation rather than a collection of one-time AI responses.
 
 * Multi-turn AI conversations
 * Context-aware reflective responses
-* Follow-up questions to encourage deeper reflection
+* Follow-up questions for deeper reflection
 * Empathetic journaling assistance
 
-### 💭 Guided Reflection Prompts
+### 📊 2. Smart Journal Insights
+
+Gemini helps users understand patterns within their reflections.
+
+Insights include:
+
+* **Mood**
+* **Topics**
+* **Reflection patterns**
+* **Journal statistics**
+
+This turns stored journal entries into meaningful reflection insights.
+
+### 🔐 3. User-Isolated Journal Data
+
+Every user's journal data is associated with their authenticated **Firebase UID**.
+
+Firestore security rules are designed around user ownership:
+
+```text
+request.auth.uid == userId
+```
+
+This prevents users from accessing another user's journal entries.
+
+### 🛡️ 4. Threat-Model-First Security
+
+Security was considered as part of the application design rather than added afterward.
+
+The project considers:
+
+* Authentication and authorization
+* User data isolation
+* Prompt-injection risks
+* Input handling
+* Least-privilege access
+* Secret management
+
+### 💭 5. Guided Reflection Prompts
+
+Users can start their reflection using structured prompts:
 
 * 🌅 Daily Check-In
 * 💛 Gratitude & Joy
 * 🧩 Working Through Friction
 * 🎨 Creative Introspection
 
-### 📊 Smart Journal Insights
+### 📝 6. Complete Journal Management
 
-Gemini helps extract useful insights from journal entries, including:
-
-* Mood
-* Topics
-* Reflection patterns
-* Journal statistics
-
-### 📝 Journal Management
+Users can:
 
 * Create journal entries
 * Save entries to Firestore
-* Load personal entries
+* Load their personal entries
 * Delete entries
 * Sign out securely
 
 ---
 
-## 🛠️ Tech Stack
-
-| Layer                | Technology                               |
-| -------------------- | ---------------------------------------- |
-| AI Model             | Gemini API via Google AI Studio          |
-| Authentication       | Firebase Authentication — Google Sign-In |
-| Database             | Cloud Firestore                          |
-| Hosting / Deployment | Google Cloud                             |
-| Secrets Management   | Google Cloud Secret Manager              |
-| Frontend             | Google AI Studio Build Mode              |
-
----
-
 # 🔒 Security & Threat Model
 
-The application was developed with a **threat-modeling-first approach**.
+Personal Gemini Journal follows a **threat-model-first approach**.
 
-### Input Surfaces
+### Authentication
 
-User-submitted journal content is validated and handled carefully before being processed.
+Google Sign-In is implemented through **Firebase Authentication**.
+
+Only authenticated users should access their personal journal data.
+
+### Data Isolation
+
+Journal entries are scoped to the authenticated user's Firebase UID.
+
+The intended access model is:
+
+```text
+User
+  ↓
+Firebase Authentication
+  ↓
+Authenticated Firebase UID
+  ↓
+UID-based Firestore access
+  ↓
+User's own journal entries
+```
 
 ### Prompt Injection
 
-The application considers prompt-injection risks and includes safeguards designed to prevent malicious instructions from improperly influencing AI behavior.
-
-### Tool & API Execution
-
-Backend access follows a least-privilege approach wherever applicable.
-
-### Memory & State Isolation
-
-Journal data is associated with the authenticated user's Firebase UID.
-
-Firestore security rules enforce user-level access so that users cannot access another user's journal entries.
+The application considers prompt-injection risks when processing user-provided journal content and AI interactions.
 
 ### Secrets
 
-Sensitive credentials and API keys are not hardcoded into the application. Secret management is handled through Google Cloud Secret Manager where applicable.
+Sensitive Gemini credentials are not intended to be stored directly in the source code.
+
+Secret handling is managed through the available **Google AI Studio / Google Cloud secret-management configuration**.
 
 ### Cross-User Verification
 
-Cross-user isolation was manually tested by signing in with a second Google account and verifying that another user's journal entries were not visible.
-
----
-
-# 🚀 Deployment
-
-The application was built and deployed using **Google AI Studio Build Mode**.
-
-### 1. Configure Google AI Studio
-
-Custom instructions defined requirements for:
-
-* Firebase Authentication
-* Firestore security
-* User data isolation
-* Gemini integration
-* Threat modeling
-* Secure secret handling
-* Responsive UI
-
-### 2. Build the Application
-
-The application was generated and refined in Google AI Studio Build Mode with requirements for authentication, journaling, Gemini conversations, Firestore storage, and security.
-
-### 3. Configure Firebase & Firestore
-
-Firebase Authentication and Cloud Firestore were configured in the connected Google Cloud project.
-
-Journal entries are stored according to the authenticated user's UID.
-
-### 4. Test the Application
-
-The following functionality was tested:
-
-* ✅ Google Sign-In
-* ✅ Multi-turn Gemini conversations
-* ✅ Journal creation
-* ✅ Firestore save/load
-* ✅ Entry deletion
-* ✅ Sign-out
-* ✅ Cross-user data isolation
-
-### 5. Publish the Application
-
-The application was published through the Google AI Studio publishing flow:
-
-```text
-Publish → Configure Preferences → Publish Your App
-```
-
-### 6. Cloud Run Label
-
-The Cloud Run service was labeled:
-
-```text
-dev-tutorial: cloud-run-ai-challenge
-```
-
-### 7. GitHub Sync
-
-The source code was synchronized to GitHub through Google AI Studio:
-
-```text
-Share → GitHub
-```
-
----
-
-# 🔗 Live Application
-
-**Live App:**
-https://ais-dev-6ouoocm6zx4pxjkmneky4i-169198190045.asia-east1.run.app
-
-This is the live, working Cloud Run deployment.
-
-Google Sign-In, multi-turn Gemini conversations, and Firestore journal save/load have all been verified working on this link.
-
----
-
-# 🔐 Firestore Security
-
-Journal entries are protected by **Firestore Security Rules**.
-
-### Intended Access Model
-
-```text
-No public read/write access
-            ↓
-Authenticated user required
-            ↓
-Firebase Authentication UID
-            ↓
-UID matches journal owner
-            ↓
-       Access allowed
-```
-
-## Firestore Security Rules
-
-The intended rule logic is based on user ownership:
-
-```text
-request.auth.uid == userId
-```
-
-This ensures that journal data is scoped to the authenticated user's Firebase UID.
-
-### Security Notes
-
-The `firebaseApiKey` in `firebase-applet-config.json` is a **public Firebase Web API key**, not a secret credential. This is standard per Firebase's official documentation.
-
-Actual data security is enforced through:
-
-* Firestore Security Rules
-* User-scoped `request.auth.uid == userId`
-* Firebase Authentication
-
-The private Gemini API key is never exposed in this repository. It is injected only at runtime via environment secrets through **Secret Manager / AI Studio Secrets panel**.
+User isolation was manually tested by signing in with a second Google account and verifying that another user's journal entries were not visible.
 
 ---
 
@@ -226,35 +143,190 @@ The private Gemini API key is never exposed in this repository. It is injected o
                                  │
                                  ▼
                     ┌─────────────────────────┐
-                    │  Personal Gemini        │
-                    │  Journal Frontend       │
-                    └───────┬─────────┬───────┘
-                            │         │
-                            │         │ Gemini
-                            │         │ requests
-                            ▼         ▼
-                    ┌────────────┐ ┌──────────┐
-                    │ Firestore  │ │  Gemini  │
-                    │ UID-based  │ │   API    │
-                    │ isolation  │ └──────────┘
-                    └────────────┘
-                            │
-                            ▼
-                    ┌─────────────────┐
-                    │  Google Cloud   │
-                    │    Cloud Run    │
-                    └─────────────────┘
+                    │ Personal Gemini Journal │
+                    │   React / TypeScript     │
+                    └─────────┬───────┬───────┘
+                              │       │
+                       Journal│       │ Gemini
+                         data │       │ requests
+                              ▼       ▼
+                     ┌────────────┐ ┌──────────┐
+                     │ Firestore  │ │  Gemini  │
+                     │ UID-based  │ │   API    │
+                     │ isolation  │ └──────────┘
+                     └────────────┘
+                              │
+                              ▼
+                     ┌─────────────────┐
+                     │  Google Cloud   │
+                     │    Cloud Run    │
+                     └─────────────────┘
 ```
 
 ---
 
-# 🎯 Project Goal
+# 🛠️ Technology Stack
 
-Personal Gemini Journal aims to provide a private space where users can:
+| Layer             | Technology                                           |
+| ----------------- | ---------------------------------------------------- |
+| Frontend          | React + TypeScript                                   |
+| AI                | Gemini API via Google AI Studio                      |
+| Authentication    | Firebase Authentication — Google Sign-In             |
+| Database          | Cloud Firestore                                      |
+| Deployment        | Google Cloud Run                                     |
+| Secret Management | Google AI Studio / Google Cloud secret configuration |
+| Development       | Google AI Studio Build Mode                          |
 
-**Write → Reflect → Converse → Understand**
+---
 
-Instead of simply storing journal entries, the application uses Gemini to turn journaling into an interactive reflection experience.
+# 🚀 Deployment
+
+The application was built and published using **Google AI Studio Build Mode** and connected Google Cloud/Firebase services.
+
+### Build & Configuration
+
+Custom instructions were used to define requirements for:
+
+* Firebase Authentication
+* Firestore security
+* User data isolation
+* Gemini integration
+* Threat modeling
+* Secure secret handling
+* Responsive UI
+
+### Testing
+
+The following core functionality was tested:
+
+* ✅ Google Sign-In
+* ✅ Multi-turn Gemini conversations
+* ✅ Journal creation
+* ✅ Firestore save/load
+* ✅ Entry deletion
+* ✅ Sign-out
+* ✅ Cross-user data isolation
+
+### Cloud Run
+
+The application was deployed through the Google Cloud environment and tested as a Cloud Run application.
+
+---
+
+# 🔗 Live Application
+
+**Live App:**
+
+https://ais-dev-6ouoocm6zx4pxjkmneky4i-169198190045.asia-east1.run.app
+
+---
+
+# 🔐 Firestore Security Model
+
+The intended access model is:
+
+```text
+No public journal access
+          ↓
+Authenticated user required
+          ↓
+Firebase Authentication UID
+          ↓
+UID matches journal owner
+          ↓
+       Access allowed
+```
+
+The application's journal data is designed around user ownership rather than shared access.
+
+The Firebase Web API key contained in the frontend configuration is a **public Firebase Web API key**. It is not treated as the application's private secret.
+
+Actual data protection relies on:
+
+* Firebase Authentication
+* Firestore Security Rules
+* User-scoped authorization
+* Secret management for private credentials
+
+---
+
+# 🎯 Why This Project?
+
+Traditional journaling mainly focuses on storing thoughts.
+
+Personal Gemini Journal adds an interactive reflection layer:
+
+```text
+Traditional Journal
+Write → Save
+
+Personal Gemini Journal
+Write → Reflect → Converse → Discover Insights
+```
+
+The goal is to create a private space where users can explore their thoughts through an AI-assisted reflection experience while keeping journal data isolated per user.
+
+---
+
+# 🏆 Ideathon Focus
+
+The project was designed with the Hack2skill Ideathon evaluation areas in mind:
+
+### ❤️ Authenticity
+
+A journaling experience enhanced with **multi-turn Gemini reflection and Smart Journal Insights**.
+
+### 👤 Usability
+
+Simple Google Sign-In, guided prompts, conversational reflection, and straightforward journal management.
+
+### ⚙️ Stability
+
+Core authentication, AI conversation, journal persistence, deletion, and sign-out flows were tested.
+
+### 🛡️ Security
+
+User-isolated Firestore storage, Firebase Authentication, security rules, threat modeling, and secret-management practices.
+
+---
+
+# 📌 Project Highlights
+
+**🔐 Secure Authentication**
+Google Sign-In with Firebase Authentication.
+
+**🤖 AI Reflection**
+Multi-turn, context-aware Gemini conversations.
+
+**📊 Smart Insights**
+Mood, topics, reflection patterns, and journal statistics.
+
+**🔒 User Isolation**
+Firestore data scoped to authenticated users.
+
+**🛡️ Threat Modeling**
+Security considered throughout application design.
+
+**☁️ Cloud Deployment**
+Application deployed using Google Cloud Run.
+
+---
+
+# 🎥 Demo
+
+**Demo Video:**
+
+https://drive.google.com/file/d/1NzpfG2JRTx2I-w7pGEsJ12O4IBf_rD9I/view?usp=drivesdk
+
+The demo walks through the application from **sign-in → journaling → Gemini conversation → saving entries → application/code walkthrough**.
+
+---
+
+# 🔗 Repository
+
+**GitHub:**
+
+https://github.com/Minahil099/personal-gemini-journal-app
 
 ---
 
@@ -264,11 +336,7 @@ Instead of simply storing journal entries, the application uses Gemini to turn j
 
 **Ideathon 2026 — Hack2skill**
 
-Built using Google Cloud technologies and Gemini.
-
-### Hashtag
-
-`#AccelerateAIwithCloudRun`
+Built with Google Cloud technologies, Firebase, and Gemini.
 
 ---
 
@@ -280,6 +348,8 @@ Software Engineering Student
 
 ---
 
-# 📌 Project Status
+## 🚀 Project Status
 
-🟢 **Built and deployed for the Hack2skill Ideathon 2026.**
+**Built for the Hack2skill Ideathon 2026.**
+
+> **Write. Reflect. Converse. Understand.**
