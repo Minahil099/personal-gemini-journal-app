@@ -213,12 +213,12 @@ The application was deployed through the Google Cloud environment and tested as 
 
 ---
 
-# 🔗 Live Application
+🔗 Live Application
+Official Cloud Run Service: personal-gemini-journal (asia-southeast1)
 
-**Live App:**
+https://journal-with-gemini55.ai.studio
 
-https://ais-dev-6ouoocm6zx4pxjkmneky4i-169198190045.asia-east1.run.app
-
+Note: This deployment is temporarily inaccessible because the linked Academy codelab billing account closed after its credits expired, disabling billing on the project — this is unrelated to the application code. See the Demo section below for a full working walkthrough video.
 ---
 
 # 🔐 Firestore Security Model
